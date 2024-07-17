@@ -125,13 +125,3 @@ export async function GET(
     );
   }
 }
-
-
-// Error handling middleware
-export function onError(error: Error) {
-  logger.error({ error }, 'Unhandled error in API route');
-  return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), {
-    status: 500,
-    headers: { 'Content-Type': 'application/json' }
-  });
-}
