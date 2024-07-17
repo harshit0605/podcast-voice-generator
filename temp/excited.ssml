@@ -1,0 +1,9 @@
+<speak>
+  <p><s>Drew: <prosody rate="medium" pitch="+10%">सारा, क्या तुमने सुना? <emphasis level="strong">हमें भारत जाने का मौका मिल गया है!</emphasis> मैं इतना उत्साहित हूँ!</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="fast" pitch="+20%">वाह, ड्रू! यह तो बहुत अच्छी खबर है! <emphasis level="moderate">मुझे तो विश्वास ही नहीं हो रहा।</emphasis> हम कब जा रहे हैं?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Drew: <prosody rate="medium" pitch="+15%">हम अगले महीने जा रहे हैं। <emphasis level="strong">मुझे ताज महल देखने की बहुत इच्छा है।</emphasis> तुम क्या देखना चाहोगी, aसारा?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="medium" pitch="+10%">मैं तो <emphasis level="moderate">जयपुर का गुलाबी शहर</emphasis> देखना चाहती हूँ। <prosody rate="slow" pitch="-10%">और हाँ, भारतीय व्यंजनों का स्वाद भी लेना है।</prosody> यह यात्रा बहुत मजेदार होगी!</s></p>
+</speak>

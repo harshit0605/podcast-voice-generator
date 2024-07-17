@@ -1,0 +1,9 @@
+<speak>
+  <p><s>Drew: <prosody rate="slow" pitch="-15%">सारा, <emphasis level="strong">मुझे बहुत दुख के साथ बताना पड़ रहा है</emphasis> कि मेरे दादाजी का निधन हो गया है।</prosody></s></p>
+  <break time="1s"/>
+  <p><s>Sarah: <prosody rate="slow" pitch="-20%">ओह ड्रू, <emphasis level="strong">मुझे बहुत दुख हुआ यह सुनकर।</emphasis> मैं जानती हूँ कि तुम उनसे कितना प्यार करते थे। <prosody rate="medium" pitch="-10%">क्या मैं कुछ मदद कर सकती हूँ?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Drew: <prosody rate="medium" pitch="-10%">धन्यवाद, सारा। <emphasis level="moderate">तुम्हारा साथ ही मेरे लिए बहुत है।</emphasis> <prosody rate="slow" pitch="-5%">मुझे याद है, वे हमेशा कहते थे कि जीवन का हर पल कीमती है।</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="medium" pitch="-5%">वे बहुत समझदार थे, ड्रू। <emphasis level="moderate">उनकी यादें हमेशा तुम्हारे साथ रहेंगी।</emphasis> <prosody rate="slow" pitch="+5%">अगर तुम्हें किसी भी चीज की जरूरत हो, तो मैं हमेशा यहाँ हूँ।</prosody></s></p>
+</speak>

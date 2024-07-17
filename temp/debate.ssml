@@ -1,0 +1,9 @@
+<speak>
+  <p><s>Drew: <prosody rate="medium" pitch="+5%">सारा, मुझे लगता है कि <emphasis level="strong">हमें पर्यावरण संरक्षण के लिए कुछ करना चाहिए।</emphasis> क्या तुम्हें नहीं लगता कि जलवायु परिवर्तन एक गंभीर समस्या है?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="medium" pitch="-5%">हाँ ड्रू, मैं समझती हूँ। <emphasis level="moderate">लेकिन क्या यह सिर्फ सरकार की जिम्मेदारी नहीं है?</emphasis> हम आम लोग क्या कर सकते हैं?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Drew: <prosody rate="medium" pitch="+10%"><emphasis level="strong">नहीं सारा, यह हम सभी की जिम्मेदारी है!</emphasis> हम छोटी-छोटी चीजें कर सकते हैं, जैसे प्लास्टिक का कम उपयोग करना या सार्वजनिक परिवहन का उपयोग करना।</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="medium" pitch="+5%">हम्म, शायद तुम सही कह रहे हो। <emphasis level="moderate">मैं भी अपने दैनिक जीवन में कुछ बदलाव ला सकती हूँ।</emphasis> <prosody rate="slow" pitch="-5%">क्या तुम मुझे कुछ और सुझाव दे सकते हो?</prosody></s></p>
+</speak>

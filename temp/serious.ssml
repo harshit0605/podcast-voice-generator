@@ -1,0 +1,9 @@
+<speak>
+  <p><s>Sarah: <prosody rate="slow" pitch="-10%">ड्रू, मुझे लगता है कि हमारे प्रोजेक्ट में कुछ गड़बड़ है। <emphasis level="strong">डेडलाइन बहुत नजदीक है</emphasis> और हम पीछे चल रहे हैं।</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Drew: <prosody rate="medium" pitch="-5%"><emphasis level="moderate">क्या? यह तो बहुत चिंता की बात है।</emphasis> क्या तुमने टीम के साथ इस बारे में बात की है?</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Sarah: <prosody rate="medium" pitch="-5%">हाँ, मैंने बात की है। <emphasis level="strong">लेकिन कोई ठोस समाधान नहीं निकला।</emphasis> मुझे लगता है कि हमें अतिरिक्त समय की आवश्यकता होगी।</prosody></s></p>
+  <break time="0.5s"/>
+  <p><s>Drew: <prosody rate="slow" pitch="-10%">ठीक है, मैं समझ गया। <emphasis level="moderate">चलो, हम मिलकर एक रणनीति बनाते हैं।</emphasis> <prosody rate="medium" pitch="+5%">मुझे विश्वास है कि हम इस समस्या का समाधान ढूंढ लेंगे।</prosody></s></p>
+</speak>
