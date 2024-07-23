@@ -234,18 +234,21 @@ export async function POST(request: NextRequest) {
     // Split the transcript into segments for each speaker
     const segments = transcript.split('\n\n');
 
+    
     let audioSegments: Buffer[] = [];
-
+    
     for (const segment of segments) {
+      // console.log(segment)
       const colonIndex = segment.indexOf(':');
       if (colonIndex === -1) {
         throw new Error(`Invalid segment format: ${segment}`);
       }
-
+      
       const speaker = segment.slice(0, colonIndex).trim();
       let text = segment.slice(colonIndex + 1).trim();
       console.log(speaker, text);
-
+      console.log("---------------")
+      
       if (!text) {
         throw new Error(`Empty text for speaker: ${speaker}`);
       }

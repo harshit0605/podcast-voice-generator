@@ -58,20 +58,47 @@ const PodcastTranscriptLoader: React.FC = () => {
     setMounted(true);
   }, []);
 
-  const generateSSML = useCallback((): string => {
-    let ssml = '<speak>\n';
-    parsedTranscript.forEach((item, index) => {
-      ssml += '  <p>\n';
-      ssml += `    <s>${item.speaker}: ${item.text}</s>\n`;
-      if (item.addPause && index < parsedTranscript.length - 1) {
-        ssml += `    <break time="${defaultPauseTime}s"/>\n`;
-      }
-      ssml += '  </p>\n';
-    });
-    ssml += '</speak>';
-    return ssml;
-  }, [parsedTranscript, defaultPauseTime]);
+  // const generateSSML = useCallback((): string => {
+  //   let ssml = '<speak>\n';
+  //   parsedTranscript.forEach((item, index) => {
+  //     ssml += '  <p>\n';
+  //     ssml += `    <s>${item.speaker}: ${item.text}</s>\n`;
+  //     if (item.addPause && index < parsedTranscript.length - 1) {
+  //       ssml += `    <break time="${defaultPauseTime}s"/>\n`;
+  //     }
+  //     ssml += '  </p>\n';
+  //   });
+  //   ssml += '</speak>';
+  //   return ssml;
+  // }, [parsedTranscript, defaultPauseTime]);
   
+  const generateSSML = useCallback((): string => {
+    let ssml = '';
+    parsedTranscript.forEach((item, index) => {
+      let speakerText = item.text;
+      
+      // Remove the closing </speak> tag if it exists
+      speakerText = speakerText.replace('</speak>', '');
+      
+      // Check if there's already a break tag at the end
+      const hasExistingBreak = /<break[^>]*>\s*$/.test(speakerText);
+      
+      // Add the break tag if needed and it's not the last item
+      if (item.addPause && index < parsedTranscript.length - 1 && !hasExistingBreak) {
+        speakerText += `<break time="${defaultPauseTime}s"/>`;
+      }
+      
+      // Close the speak tag
+      speakerText += '</speak>';
+      
+      // Add the speaker's line with a newline character at the end
+      ssml += `${item.speaker}: ${speakerText}\n\n`;
+    });
+  
+    // Remove the last extra newline and trim any remaining whitespace
+    return ssml.trim();
+  }, [parsedTranscript, defaultPauseTime]);
+
   useEffect(() => {
     return () => {
       if (pollInterval) {
@@ -247,6 +274,7 @@ const handleSSMLFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const content = e.target?.result as string;
         try {
           const parsedTranscript = parseSSMLContent(content);
+          console.log(parsedTranscript)
           setParsedTranscript(parsedTranscript);
           setIsEditing(true);
         } catch (err) {
@@ -365,56 +393,91 @@ const handleSSMLFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     return parsed;
 //   };
 
-const parseSSMLContent = (ssmlContent: string): TranscriptItem[] => {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(ssmlContent, "text/xml");
+// const parseSSMLContent = (ssmlContent: string): TranscriptItem[] => {
+//     const parser = new DOMParser();
+//     const xmlDoc = parser.parseFromString(ssmlContent, "text/xml");
     
-    // Check for parsing errors
-    const parseError = xmlDoc.getElementsByTagName("parsererror");
-    if (parseError.length > 0) {
-      throw new Error("Invalid XML format");
-    }
+//     // Check for parsing errors
+//     const parseError = xmlDoc.getElementsByTagName("parsererror");
+//     if (parseError.length > 0) {
+//       throw new Error("Invalid XML format");
+//     }
   
-    const speak = xmlDoc.getElementsByTagName("speak")[0];
-    if (!speak) {
-      throw new Error("Missing <speak> tag");
-    }
+//     const speak = xmlDoc.getElementsByTagName("speak")[0];
+//     if (!speak) {
+//       throw new Error("Missing <speak> tag");
+//     }
   
-    const paragraphs = speak.getElementsByTagName("p");
-    const parsed: TranscriptItem[] = [];
+//     const paragraphs = speak.getElementsByTagName("p");
+//     const parsed: TranscriptItem[] = [];
   
-    for (let i = 0; i < paragraphs.length; i++) {
-      const sentences = paragraphs[i].getElementsByTagName("s");
-      for (let j = 0; j < sentences.length; j++) {
-        const sentence = sentences[j];
-        const text = getTextContent(sentence);
-        const colonIndex = text.indexOf(':');
+//     for (let i = 0; i < paragraphs.length; i++) {
+//       const sentences = paragraphs[i].getElementsByTagName("s");
+//       for (let j = 0; j < sentences.length; j++) {
+//         const sentence = sentences[j];
+//         const text = getTextContent(sentence);
+//         const colonIndex = text.indexOf(':');
         
-        if (colonIndex !== -1) {
-          parsed.push({
-            speaker: text.slice(0, colonIndex).trim(),
-            text: text.slice(colonIndex + 1).trim(),
-            addPause: false // Initialize as false
-          });
-        } else {
-          const previousSpeaker = parsed.length > 0 ? parsed[parsed.length - 1].speaker : `Speaker ${i + 1}`;
-          parsed.push({
-            speaker: previousSpeaker,
-            text: text.trim(),
-            addPause: false // Initialize as false
-          });
-        }
-      }
+//         if (colonIndex !== -1) {
+//           parsed.push({
+//             speaker: text.slice(0, colonIndex).trim(),
+//             text: text.slice(colonIndex + 1).trim(),
+//             addPause: false // Initialize as false
+//           });
+//         } else {
+//           const previousSpeaker = parsed.length > 0 ? parsed[parsed.length - 1].speaker : `Speaker ${i + 1}`;
+//           parsed.push({
+//             speaker: previousSpeaker,
+//             text: text.trim(),
+//             addPause: false // Initialize as false
+//           });
+//         }
+//       }
       
-      // Check if there's a break tag directly under the paragraph, after all sentences
-      const breakAfterSentences = paragraphs[i].getElementsByTagName("break");
-      if (breakAfterSentences.length > 0 && breakAfterSentences[breakAfterSentences.length - 1].parentNode === paragraphs[i]) {
-        if (parsed.length > 0) {
-          parsed[parsed.length - 1].addPause = true;
-        }
-      }
-    }
+//       // Check if there's a break tag directly under the paragraph, after all sentences
+//       const breakAfterSentences = paragraphs[i].getElementsByTagName("break");
+//       if (breakAfterSentences.length > 0 && breakAfterSentences[breakAfterSentences.length - 1].parentNode === paragraphs[i]) {
+//         if (parsed.length > 0) {
+//           parsed[parsed.length - 1].addPause = true;
+//         }
+//       }
+//     }
   
+//     return parsed;
+//   };
+
+const parseSSMLContent = (ssmlContent: string): TranscriptItem[] => {
+    const lines = ssmlContent.split('\n');
+    const parsed: TranscriptItem[] = [];
+    let currentSpeaker = '';
+    let currentText = '';
+    let addPause = false;
+
+    lines.forEach((line) => {
+      const trimmedLine = line.trim();
+      if (trimmedLine === '') return;
+
+      const speakerMatch = trimmedLine.match(/^(.*?):\s*(.*)$/);
+      if (speakerMatch) {
+        if (currentSpeaker && currentText) {
+          parsed.push({ speaker: currentSpeaker, text: currentText, addPause });
+        }
+        currentSpeaker = speakerMatch[1].trim();
+        currentText = speakerMatch[2].trim();
+        addPause = false;
+      } else {
+        currentText += ' ' + trimmedLine;
+      }
+
+      if (trimmedLine.includes('<break')) {
+        addPause = true;
+      }
+    });
+
+    if (currentSpeaker && currentText) {
+      parsed.push({ speaker: currentSpeaker, text: currentText, addPause });
+    }
+
     return parsed;
   };
   
@@ -726,6 +789,16 @@ return (
                 defaultPauseTime={defaultPauseTime}
                 setDefaultPauseTime={setDefaultPauseTime}
             />            
+            {/* <TranscriptEditor
+              initialTranscript={[
+                { speaker: "Speaker 1", text: "Hello, world!" },
+                { speaker: "Speaker 2", text: "Hi there!" }
+              ]}
+              onTranscriptChange={(updatedTranscript) => {
+                console.log(updatedTranscript);
+                // Handle the updated transcript
+              }}
+            /> */}
             <div className="mt-6 flex flex-wrap gap-2 items-center">
               <Popover open={showExportOptions} onOpenChange={setShowExportOptions}>
                 <PopoverTrigger asChild>
